@@ -1,2 +1,3 @@
 # frontend-development
-Repo z materiałami z zajęć
+
+## Michał Niskowski 238204
