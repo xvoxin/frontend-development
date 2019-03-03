@@ -95,6 +95,11 @@ var removeVehicle = function(vehicle) {
     vehicleBase.splice(vehicleIndex, 1)
 }
 
+var findByName = function(name) {
+    var filteredBase = vehicleBase.filter(element => element.name == name)
+    print(filteredBase)
+}
+
 var findByType = function(type) {
     var filteredBase = vehicleBase.filter(element => element.type == type)
     print(filteredBase)
