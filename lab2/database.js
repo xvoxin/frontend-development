@@ -95,6 +95,30 @@ var removeVehicle = function(vehicle) {
     vehicleBase.splice(vehicleIndex, 1)
 }
 
+var findByType = function(type) {
+    var filteredBase = vehicleBase.filter(element => element.type == type)
+    print(filteredBase)
+}
+
+var findRangeHigherThan = function(range) {
+    var filteredBase = vehicleBase.filter(element => element.range > range)
+    print(filteredBase)
+}
+
+var findCheaperThan = function(price) {
+    var filteredBase = vehicleBase.filter(element => element.price < price)
+    print(filteredBase)
+}
+
+var findHasApp = function(hasApp) {
+    var filteredBase = vehicleBase.filter(element => element.hasApp == hasApp)
+    print(filteredBase)
+}
+
+var print = function(value) {
+    console.log(value)
+}
+
 var testVehicle = {
     name: "Joyor X5S xdd xdxdxd",
     range: 55,
@@ -119,4 +143,16 @@ showAllVehicles()
 console.log("=================================")
 removeVehicle(updatedVehicle)
 showAllVehicles()
+console.log("=================================")
+
+findByType(vehicletype.SCOOTER)
+console.log("=================================")
+findRangeHigherThan(20)
+console.log("=================================")
+findCheaperThan(4000)
+console.log("=================================")
+
+findCheaperThan(1)
+console.log("=================================")
+findHasApp(false)
 console.log("=================================")
