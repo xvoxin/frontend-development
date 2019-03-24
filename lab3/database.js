@@ -69,12 +69,12 @@ var boostedBoard = new Hoverboard(
 console.log(xiaomiScooter.getWheelSize())
 console.log(boostedBoard.getHasBackpack())
 
-var base = (function () {
+var vehicleBase = (function () {
 
     vehicles = []
 
     var isVehicleExistsInBase = function(vehicle) {
-        vehicles.array.forEach(element => {
+        vehicles.forEach(element => {
             if (element == vehicle) return true
         })
         return false
@@ -83,7 +83,7 @@ var base = (function () {
     return {
         addElectricScooter: function(name, range, price, hasApp, wheelSize) {
             var scooter = new ElectricScooter(name, range, price, hasApp, wheelSize)
-            if (isVehicleExistsInBase(vehicle)) {
+            if (isVehicleExistsInBase(scooter)) {
                 console.log("Given vehicle already exists in base!")
                 return
             }
@@ -100,6 +100,20 @@ var base = (function () {
             var vehicleIndex = vehicleBase.indexOf(vehicle)
             vehicleBase.splice(vehicleIndex, 1)
         },
-        editVehicle
+        getVehicles() {
+            return vehicles
+        }
     }
 })
+
+var base = vehicleBase()
+
+var xiaomi = base.addElectricScooter(
+    "Xiaomi",
+    "34",
+    1799.99,
+    true,
+    6
+)
+
+console.log(base.getVehicles())
