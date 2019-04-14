@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = void 0;
+exports.Database = void 0;
 
 var _vehicle = require("./vehicle");
 
@@ -23,11 +23,20 @@ function () {
   }
 
   _createClass(Database, [{
+    key: "isVehicleExistsInBase",
+    value: function isVehicleExistsInBase(vehicle) {
+      this._vehicles.forEach(function (element) {
+        if (element == vehicle) return true;
+      });
+
+      return false;
+    }
+  }, {
     key: "addElectricScooter",
     value: function addElectricScooter(name, range, price, hasApp, wheelSize) {
       var scooter = new _vehicle.ElectricScooter(name, range, price, hasApp, wheelSize);
 
-      if (isVehicleExistsInBase(scooter)) {
+      if (this.isVehicleExistsInBase(scooter)) {
         console.log("Vehicle ${name} already exists in base!");
         return;
       }
@@ -37,7 +46,7 @@ function () {
   }, {
     key: "addVehicle",
     value: function addVehicle(vehicle) {
-      if (isVehicleExistsInBase(vehicle)) {
+      if (this.isVehicleExistsInBase(vehicle)) {
         console.log("Given vehicle already exists in base!");
         return;
       }
@@ -56,18 +65,9 @@ function () {
     value: function getVehicles() {
       return this._vehicles;
     }
-  }, {
-    key: "isVehicleExistsInBase",
-    value: function isVehicleExistsInBase(vehicle) {
-      this._vehicles.forEach(function (element) {
-        if (element == vehicle) return true;
-      });
-
-      return false;
-    }
   }]);
 
   return Database;
 }();
 
-exports["default"] = Database;
+exports.Database = Database;

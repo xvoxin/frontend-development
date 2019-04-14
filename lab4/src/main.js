@@ -1,4 +1,4 @@
-import Database from './database'
+import { Database } from './database'
 import  { ElectricScooter, ElecricVehicle, Hoverboard } from './vehicle'
 
 const database = new Database()
