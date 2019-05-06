@@ -1,9 +1,39 @@
 import  { ElectricScooter, ElecricVehicle, Hoverboard } from './vehicle'
 
-export class Database {
+export class VehicleBase {
 
     constructor() {
-        this._vehicles = []
+        this._vehicles = [
+            new ElectricScooter(
+                "Xiaomi MiJia",
+                30,
+                1599.99,
+                true,
+                6
+            ),
+            new Hoverboard(
+                "Boosted Board 2",
+                23,
+                6755.99,
+                true,
+                false
+            ),
+            new ElectricScooter(
+                "Xiaomi MiJia Pro",
+                45,
+                2599.99,
+                true,
+                6
+            ),
+            new Hoverboard(
+                "Koowheel",
+                26,
+                2575.99,
+                false,
+                false
+            ),
+
+        ]
     }
 
     isVehicleExistsInBase(vehicle) {

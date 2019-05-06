@@ -39,6 +39,10 @@ export class ElectricVehicle {
         this._hasApp = value
     }
 
+    getDetails() {
+        return `${this._name}, Range: ${this._range}, Price: ${this._price}, Has app: ${this._hasApp}`
+    }
+
 }
 
 export class ElectricScooter extends ElectricVehicle {
