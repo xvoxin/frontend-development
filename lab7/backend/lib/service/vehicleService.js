@@ -52,7 +52,7 @@ function () {
 
       if (vehicleIndex === -1) return false;
 
-      this._vehicle.splice(vehicleIndex, 1);
+      this._vehicles.splice(vehicleIndex, 1);
 
       return true;
     }
