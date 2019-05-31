@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
 
 
-export class Vehicles extends Component {
+export class VehicleList extends Component {
 
     render() {
         return (
             <div>
-                <h2>Vehicles</h2>
                 <ul>
                     {this.props.vehicles.map( vehicle => 
-                        <li key={vehicle.toString()}>{vehicle.name}</li>
+                        <li key={vehicle.name} onClick={() => this.props.onClick(this.props.vehicles.indexOf(vehicle))}><button>{vehicle.name}</button></li>
                     )}
                 </ul>
             </div>
