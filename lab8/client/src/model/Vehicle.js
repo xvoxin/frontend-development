@@ -6,10 +6,6 @@ export class ElectricVehicle {
         this.price = price
         this.hasApp = hasApp
     }
-    
-    getDetails() {
-        return `${this.name}, Range: ${this.range}, Price: ${this.price}, Has app: ${this.hasApp}`
-    }
 
 }
 

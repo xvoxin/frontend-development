@@ -16,7 +16,7 @@ app.get('/api/', (req, res) => res.send('Hello'))
 
 app.get('/api/vehicles/all', (req, res) => res.send(service.getVehicles()))
 
-app.post('/api/vehicles/create', (req, res) => {
+app.post('/api/vehicles', (req, res) => {
     var vehicle = vehicleFactory.createVehicle(req)
     var result = service.addVehicle(vehicle)
     res.send({ "result": result })
@@ -28,8 +28,8 @@ app.post('/api/vehicles/update', (req, res) => {
     res.send({ "result": result })
 })
 
-app.post('/api/vehicles/delete', (req, res) => {
-    var result = service.removeVehicle(req.body.name)
+app.delete('/api/vehicles/:vehicleName', (req, res) => {
+    var result = service.removeVehicle(req.params.vehicleName)
     res.send({ "result": result })
 })
 

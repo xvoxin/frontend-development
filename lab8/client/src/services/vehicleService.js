@@ -10,7 +10,12 @@ export class VehicleServce {
     }
 
     async addVehicle(vehicle) {
-        return await axios.post(`${URL}/vehicles/create`, vehicle)
+        return await axios.post(`${URL}/vehicles`, vehicle)
+            .then(res => res.data)
+    }
+
+    async deleteVehicle(vehicleName) {
+        return await axios.delete(`${URL}/vehicles/${vehicleName}`)
             .then(res => res.data)
     }
 

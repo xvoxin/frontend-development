@@ -2,15 +2,16 @@ import React, { Component } from 'react'
 
 export class VehicleDetails extends Component {
 
-    getDetails(vehicle) {
-        return `${vehicle.name}, Range: ${vehicle.range}, Price: ${vehicle.price}, Has app: ${vehicle.hasApp}`
-    }
-
     renderDetails() {
         if(this.props.vehicle) {
-            console.log(this.props.vehicle.name)
-            var vehicle = this.props.vehicle
-            return <p>{this.getDetails(vehicle)}</p>
+        var vehicle = this.props.vehicle
+        return <div>
+                <p>Name: {vehicle.name}</p>
+                <p>Range: {vehicle.range}</p>
+                <p>Price: {vehicle.price}</p>
+                <p>Has app: {vehicle.hasApp.toString()}</p>
+                <button onClick={this.props.onDeleteClicked}>Delete Vehicle</button>
+            </div>
         }
     }
 

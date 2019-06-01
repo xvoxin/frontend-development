@@ -1,4 +1,4 @@
-import  { ElectricScooter, ElecricVehicle, Hoverboard } from '../domain/vehicle'
+import  { ElectricScooter, ElecricVehicle, Hoverboard } from './vehicle'
 
 const TYPE_HOVERBOARD = "hoverboard"
 const TYPE_SCOOTER = "scooter"

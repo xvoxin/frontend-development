@@ -8,7 +8,7 @@ export class VehicleList extends Component {
             <div>
                 <ul>
                     {this.props.vehicles.map( vehicle => 
-                        <li key={vehicle.name} onClick={() => this.props.onClick(this.props.vehicles.indexOf(vehicle))}><button>{vehicle.name}</button></li>
+                        <li key={vehicle.name} onClick={() => this.props.onClick(this.props.vehicles.indexOf(vehicle))}>{vehicle.name}</li>
                     )}
                 </ul>
             </div>

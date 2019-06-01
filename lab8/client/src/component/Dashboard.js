@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ElectricVehicle } from '../model/Vehicle';
-import { VehicleServce } from '../services/vehicleService'
+import { VehicleServce } from '../services/VehicleService'
 import { VehicleList } from '../component/VehicleList'
 import { VehicleDetails } from '../component/VehicleDetails'
 
@@ -14,12 +14,21 @@ export class Dashboard extends Component {
 
         this.state = {
             vehicles: [],
-            activeVehicle: 0,
+            activeVehicle: -1,
             vehicleName: "",
-            vehicleRange: 0,
-            vehiclePrice: 0,
+            vehicleRange: "",
+            vehiclePrice: "",
             vehicleHasApp: false
         }
+    }
+
+    setDefaultState() {
+        this.setState({
+            vehicleName: "",
+            vehicleRange: "",
+            vehiclePrice: "",
+            vehicleHasApp: ""
+        })
     }
 
     componentDidMount() {
@@ -44,16 +53,25 @@ export class Dashboard extends Component {
             this.state.vehicleHasApp
         )
         await this.vehicleService.addVehicle(vehicle)
+        this.setDefaultState()
+        this.getVehicles()
+    }
+
+    onDeleteVehicleClicked = async () => {
+        var vehicleName = this.state.vehicles[this.state.activeVehicle].name
+        await this.vehicleService.deleteVehicle(vehicleName)
+        this.setState({activeVehicle: -1})
         this.getVehicles()
     }
 
     render() {
         return(
             <div>
-                <h2>Vehicle Base</h2><br/>
+                <h2>Vehicle Base</h2>
                 <VehicleList vehicles={this.state.vehicles} onClick={this.onVehicleClicked} />
-                <VehicleDetails vehicle={this.state.vehicles[this.state.activeVehicle]} />
+                <VehicleDetails vehicle={this.state.vehicles[this.state.activeVehicle]} onDeleteClicked={this.onDeleteVehicleClicked}/>
                 <div>
+                    <h2>Create Vehicle:</h2>
                     <form onSubmit={this.onSubmitClicked}>
                         <label>Name</label><br/>
                         <input value={this.state.vehicleName} onChange={event => this.setState({vehicleName: event.target.value})}></input><br/>
@@ -62,6 +80,7 @@ export class Dashboard extends Component {
                         <label>Price</label><br/>
                         <input value={this.state.vehiclePrice} onChange={event => this.setState({vehiclePrice: event.target.value})}></input><br/>
                         <label>Has app</label><br/>
+                        <input type="checkbox" defaultChecked={this.state.vehicleHasApp} onChange={event => this.setState({vehicleHasApp: event.target.checked})}/><br/>
                         <button>Submit</button>
                     </form>
                 </div>
