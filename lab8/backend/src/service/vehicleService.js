@@ -61,8 +61,8 @@ export class VehicleService {
         return true
     }
 
-    updateVehicle(vehicle) {
-        var vehicleIndex = this._vehicles.findIndex(element => element.name === vehicle.name)
+    updateVehicle(vehicle, vehicleName) {
+        var vehicleIndex = this._vehicles.findIndex(element => element.name === vehicleName)
         if (vehicleIndex === -1)
             return false
         

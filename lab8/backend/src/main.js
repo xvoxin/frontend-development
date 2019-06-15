@@ -22,9 +22,9 @@ app.post('/api/vehicles', (req, res) => {
     res.send({ "result": result })
 })
 
-app.post('/api/vehicles/update', (req, res) => {
+app.put('/api/vehicles/:vehicleName', (req, res) => {
     var vehicle = vehicleFactory.createVehicle(req)
-    var result = service.addVehicle(vehicle)
+    var result = service.updateVehicle(vehicle, req.params.vehicleName)
     res.send({ "result": result })
 })
 

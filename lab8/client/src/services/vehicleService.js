@@ -19,4 +19,9 @@ export class VehicleServce {
             .then(res => res.data)
     }
 
+    async updateVehicle(vehicle, vehicleName) {
+        return await axios.put(`${URL}/vehicles/${vehicleName}`, vehicle)
+            .then(res => res.data)
+    }
+
 }

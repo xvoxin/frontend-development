@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { ElectricVehicle } from '../model/Vehicle';
 import { VehicleServce } from '../services/VehicleService'
 import { VehicleList } from '../component/VehicleList'
 import { VehicleDetails } from '../component/VehicleDetails'
+import { Search } from './Search';
+import { VehicleForm } from './VehicleForm';
 
 export class Dashboard extends Component {
 
@@ -11,49 +12,61 @@ export class Dashboard extends Component {
         this.title = props.title
 
         this.vehicleService = new VehicleServce()
-
+        this.baseVehicles = []
         this.state = {
             vehicles: [],
             activeVehicle: -1,
-            vehicleName: "",
-            vehicleRange: "",
-            vehiclePrice: "",
-            vehicleHasApp: false
+            inEdit: false
         }
-    }
-
-    setDefaultState() {
-        this.setState({
-            vehicleName: "",
-            vehicleRange: "",
-            vehiclePrice: "",
-            vehicleHasApp: ""
-        })
     }
 
     componentDidMount() {
         this.getVehicles()
     }
 
+    hideEdit() {
+        this.setState({inEdit: false})
+    }
+
     async getVehicles() {
         var vehicles = await this.vehicleService.getVehicles()
+        this.baseVehicles = vehicles
         this.setState({vehicles: vehicles})
+        this.hideEdit()
+    }
+
+    onSearchChange = search => {
+        if (search === "") {
+            this.setState({vehicles: this.baseVehicles})
+            return
+        }
+        var vehicles = []
+        this.baseVehicles.forEach(element => {
+            if (element.name.includes(search)) {
+                vehicles.push(element)
+            }
+        })
+        this.setState({vehicles: vehicles})
+    }
+
+    onEditClicked = () => {
+        var edit = !this.inEdit
+        this.setState({inEdit: edit})
     }
 
     onVehicleClicked = clickedVehicle => {
         this.setState({activeVehicle: clickedVehicle})
+        this.hideEdit()
     }
 
-    onSubmitClicked = async event => {
-        event.preventDefault()
-        var vehicle = new ElectricVehicle(
-            this.state.vehicleName,
-            this.state.vehicleRange,
-            this.state.vehiclePrice,
-            this.state.vehicleHasApp
-        )
+    onEditSubmitted = async vehicle => {
+        var vehicleName = this.baseVehicles[this.state.activeVehicle].name
+        await this.vehicleService.updateVehicle(vehicle, vehicleName)
+        this.getVehicles()
+    }
+    
+    onSubmitClicked = async vehicle => {
         await this.vehicleService.addVehicle(vehicle)
-        this.setDefaultState()
         this.getVehicles()
     }
 
@@ -68,22 +81,17 @@ export class Dashboard extends Component {
         return(
             <div>
                 <h2>Vehicle Base</h2>
+                <Search onSearchChange={this.onSearchChange} />
                 <VehicleList vehicles={this.state.vehicles} onClick={this.onVehicleClicked} />
-                <VehicleDetails vehicle={this.state.vehicles[this.state.activeVehicle]} onDeleteClicked={this.onDeleteVehicleClicked}/>
-                <div>
-                    <h2>Create Vehicle:</h2>
-                    <form onSubmit={this.onSubmitClicked}>
-                        <label>Name</label><br/>
-                        <input value={this.state.vehicleName} onChange={event => this.setState({vehicleName: event.target.value})}></input><br/>
-                        <label>Range</label><br/>
-                        <input value={this.state.vehicleRange} onChange={event => this.setState({vehicleRange: event.target.value})}></input><br/>
-                        <label>Price</label><br/>
-                        <input value={this.state.vehiclePrice} onChange={event => this.setState({vehiclePrice: event.target.value})}></input><br/>
-                        <label>Has app</label><br/>
-                        <input type="checkbox" defaultChecked={this.state.vehicleHasApp} onChange={event => this.setState({vehicleHasApp: event.target.checked})}/><br/>
-                        <button>Submit</button>
-                    </form>
-                </div>
+                <VehicleDetails 
+                    vehicle={this.state.vehicles[this.state.activeVehicle]} 
+                    onDeleteClicked={this.onDeleteVehicleClicked} 
+                    onEditClicked={this.onEditClicked}/>
+                {this.state.inEdit ? <VehicleForm 
+                    title="Edit" onSubmitClicked={this.onEditSubmitted}
+                    vehicle={this.state.vehicles[this.state.activeVehicle]}/> 
+                    : null}
+                <VehicleForm title="Create" onSubmitClicked={this.onSubmitClicked} />
             </div>
         )
     }

@@ -11,6 +11,7 @@ export class VehicleDetails extends Component {
                 <p>Price: {vehicle.price}</p>
                 <p>Has app: {vehicle.hasApp.toString()}</p>
                 <button onClick={this.props.onDeleteClicked}>Delete Vehicle</button>
+                <button onClick={this.props.onEditClicked}>Edit Vehicle</button>
             </div>
         }
     }
