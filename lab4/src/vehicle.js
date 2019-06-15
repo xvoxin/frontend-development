@@ -36,7 +36,7 @@ export class ElectricVehicle {
     }
 
     set hasApp(value) {
-        this._hasApp = hasApp
+        this._hasApp = value
     }
 
 }
@@ -53,7 +53,7 @@ export class ElectricScooter extends ElectricVehicle {
     }
 
     set wheelSize(value) {
-        this._wheelSize = wheelSize
+        this._wheelSize = value
     }
 
 }

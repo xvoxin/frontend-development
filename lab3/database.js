@@ -97,8 +97,8 @@ var vehicleBase = (function () {
             vehicles.push(vehicle)
         },
         removeVehicle: function(vehicle) {
-            var vehicleIndex = vehicleBase.indexOf(vehicle)
-            vehicleBase.splice(vehicleIndex, 1)
+            var vehicleIndex = vehicles.indexOf(vehicle)
+            vehicles.splice(vehicleIndex, 1)
         },
         getVehicles() {
             return vehicles
@@ -116,4 +116,7 @@ var xiaomi = base.addElectricScooter(
     6
 )
 
+base.addVehicle(boostedBoard)
+console.log(base.getVehicles())
+base.removeVehicle(boostedBoard)
 console.log(base.getVehicles())

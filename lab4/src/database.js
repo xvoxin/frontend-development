@@ -7,16 +7,18 @@ export class Database {
     }
 
     isVehicleExistsInBase(vehicle) {
+        var result = false
         this._vehicles.forEach(element => {
-            if (element == vehicle) return true
+            if (element === vehicle) 
+                result = true
         })
-        return false
+        return result
     }
 
     addElectricScooter(name, range, price, hasApp, wheelSize) {
         let scooter = new ElectricScooter(name, range, price, hasApp, wheelSize)
         if (this.isVehicleExistsInBase(scooter)) {
-            console.log("Vehicle ${name} already exists in base!")
+            console.log(`Vehicle ${name} already exists in base!`)
             return
         }
         this._vehicles.push(scooter)
@@ -32,7 +34,7 @@ export class Database {
 
     removeVehicle(vehicle) {
         let vehicleIndex = this._vehicles.indexOf(vehicle)
-        this._vehicle.splice(vehicleIndex, 1)
+        this._vehicles.splice(vehicleIndex, 1)
     }
 
     getVehicles() {
